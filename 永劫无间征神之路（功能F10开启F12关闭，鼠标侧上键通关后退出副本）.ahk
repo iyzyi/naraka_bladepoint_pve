@@ -236,7 +236,7 @@ F10::
 	Run()
 Return
 
-F11::
+F12::
 	Stop()
 Return
 
