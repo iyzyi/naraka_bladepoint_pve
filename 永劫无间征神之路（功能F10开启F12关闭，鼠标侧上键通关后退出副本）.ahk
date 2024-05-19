@@ -14,18 +14,11 @@ global Z_Y2 		:= 961
 global Z_XClickPos  := 1643
 global Z_YClickPos  := 941
 
-global ImageZZ      := "本局异象.jpg"
-global ZZ_X1	 	:= 872
-global ZZ_Y1 		:= 325
-global ZZ_X2 		:= 1049
-global ZZ_Y2 		:= 384
-
-global ImageA 	    := "跳过.jpg"
+global ImageA 	    := "ESC.jpg"
 global A_X1	 	    := 1760
 global A_Y1 		:= 1018
 global A_X2 		:= 1920
 global A_Y2 		:= 1080
-
 
 global ImageC 	    := "继续_铸就传奇界面.jpg"
 global C_X1	 	    := 897
@@ -45,7 +38,7 @@ global E_Y1 		:= 415
 global E_X2 		:= 1002
 global E_Y2 		:= 467
 
-global ImageF 	    := "开始游戏.jpg"
+global ImageF 	    := "开始征神.jpg"
 global F_X1	 	    := 1735
 global F_Y1 		:= 947
 global F_X2 		:= 1896
@@ -101,106 +94,89 @@ Run()
                 
                 ; 没找到%ImageZ%的图像
                 else if (ErrorLevel = 1){		
+                  
+                    ImageSearch, FoundX, FoundY, A_X1, A_Y1, A_X2, A_Y2, *80 %ImageA%
                 
-                    ImageSearch, FoundX, FoundY, ZZ_X1, ZZ_Y1, ZZ_X2, ZZ_Y2, *80 %ImageZZ%
-                    
                     if (ErrorLevel = 2){
-                        MsgBox 查找图像失败，请确保%ImageZZ%与本程序在同一目录下
+                        MsgBox 查找图像失败，请确保%ImageA%与本程序在同一目录下
                         ExitApp
                     }
                     
-                    ; 没找到%ImageZZ%的图像
+                    ; 没找到%ImageA%的图像
                     else if (ErrorLevel = 1){		
                         
-                        ImageSearch, FoundX, FoundY, A_X1, A_Y1, A_X2, A_Y2, *80 %ImageA%
+                        ImageSearch, FoundX, FoundY, C_X1, C_Y1, C_X2, C_Y2, *80 %ImageC%
                     
                         if (ErrorLevel = 2){
-                            MsgBox 查找图像失败，请确保%ImageA%与本程序在同一目录下
+                            MsgBox 查找图像失败，请确保%ImageC%与本程序在同一目录下
                             ExitApp
                         }
                         
-                        ; 没找到%ImageA%的图像
+                        ; 没找到%ImageC%的图像
                         else if (ErrorLevel = 1){		
                             
-                            ImageSearch, FoundX, FoundY, C_X1, C_Y1, C_X2, C_Y2, *80 %ImageC%
-                        
+                            ImageSearch, FoundX, FoundY, D_X1, D_Y1, D_X2, D_Y2, *80 %ImageD%
+                    
                             if (ErrorLevel = 2){
-                                MsgBox 查找图像失败，请确保%ImageC%与本程序在同一目录下
+                                MsgBox 查找图像失败，请确保%ImageD%与本程序在同一目录下
                                 ExitApp
                             }
                             
-                            ; 没找到%ImageC%的图像
+                            ; 没找到%ImageD%的图像
                             else if (ErrorLevel = 1){		
                                 
-                                ImageSearch, FoundX, FoundY, D_X1, D_Y1, D_X2, D_Y2, *80 %ImageD%
-                        
+                                ImageSearch, FoundX, FoundY, E_X1, E_Y1, E_X2, E_Y2, *80 %ImageE%
+                    
                                 if (ErrorLevel = 2){
-                                    MsgBox 查找图像失败，请确保%ImageD%与本程序在同一目录下
+                                    MsgBox 查找图像失败，请确保%ImageE%与本程序在同一目录下
                                     ExitApp
                                 }
                                 
-                                ; 没找到%ImageD%的图像
-                                else if (ErrorLevel = 1){		
+                                ; 没找到%ImageE%的图像
+                                else if (ErrorLevel = 1){
                                     
-                                    ImageSearch, FoundX, FoundY, E_X1, E_Y1, E_X2, E_Y2, *80 %ImageE%
-                        
+                                    ImageSearch, FoundX, FoundY, F_X1, F_Y1, F_X2, F_Y2, *80 %ImageF%
+                                
                                     if (ErrorLevel = 2){
-                                        MsgBox 查找图像失败，请确保%ImageE%与本程序在同一目录下
+                                        MsgBox 查找图像失败，请确保%ImageF%与本程序在同一目录下
                                         ExitApp
                                     }
                                     
-                                    ; 没找到%ImageE%的图像
-                                    else if (ErrorLevel = 1){
+                                    ; 没找到%ImageF%的图像
+                                    else if (ErrorLevel = 1){		
                                         
-                                        ImageSearch, FoundX, FoundY, F_X1, F_Y1, F_X2, F_Y2, *80 %ImageF%
-                                    
-                                        if (ErrorLevel = 2){
-                                            MsgBox 查找图像失败，请确保%ImageF%与本程序在同一目录下
-                                            ExitApp
-                                        }
-                                        
-                                        ; 没找到%ImageF%的图像
-                                        else if (ErrorLevel = 1){		
-                                            
 
-                                        }
-                                        
-                                        ; 找到了%ImageF%
-                                        else
-                                        {
-                                            MouseClick, , %F_XClickPos%, %F_YClickPos%
-                                        }
                                     }
                                     
-                                    ; 找到了%ImageE%
+                                    ; 找到了%ImageF%
                                     else
                                     {
-                                        Send {Space}
+                                        MouseClick, , %F_XClickPos%, %F_YClickPos%
                                     }
                                 }
                                 
-                                ; 找到了%ImageD%
+                                ; 找到了%ImageE%
                                 else
                                 {
                                     Send {Space}
                                 }
                             }
                             
-                            ; 找到了%ImageC%
+                            ; 找到了%ImageD%
                             else
                             {
                                 Send {Space}
                             }
                         }
                         
-                        ; 找到了%ImageA%
+                        ; 找到了%ImageC%
                         else
                         {
-                            Send {Esc}
+                            Send {Space}
                         }
                     }
                     
-                    ; 找到了%ImageZZ%
+                    ; 找到了%ImageA%
                     else
                     {
                         Send {Esc}
