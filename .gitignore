@@ -1,2 +1,3 @@
 *.exe
-script_log.txt
+/script_log.txt
+/Dll
