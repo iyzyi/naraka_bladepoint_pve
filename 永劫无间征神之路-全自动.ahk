@@ -1,339 +1,171 @@
-﻿; 永劫无间 征神之路 自动跳过
+﻿; 永劫无间 征神之路 雪满弓刀 全自动
 ; AutoHotKey文档：https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm
 
 
-global SleepTimePerLoop 	    := 400
-global OnLooping 			    := 0
-
-global SleepTimePerLoopAttack   := 200
-global OnLoopingAttack          := 0
-
-global ImageZ       := "使用英雄.jpg"
-global Z_X1	 	    := 1599
-global Z_Y1 		:= 914
-global Z_X2 		:= 1678
-global Z_Y2 		:= 961
-global Z_XClickPos  := 1643
-global Z_YClickPos  := 941
-
-global ImageA 	    := "ESC.jpg"
-global A_X1	 	    := 1760
-global A_Y1 		:= 1018
-global A_X2 		:= 1920
-global A_Y2 		:= 1080
+global SleepTimePerLoop     := 250
+global OnLooping 		    := 0
 
 global LastSkipCGTimestamp  := 0
 global PressEscTimeInterval := 60   ; 秒
 
-global ImageC 	    := "继续_铸就传奇界面.jpg"
-global C_X1	 	    := 897
-global C_Y1 		:= 1028
-global C_X2 		:= 1024
-global C_Y2 		:= 1069
-
-global ImageD 	    := "继续_红色按钮.jpg"
-global D_X1	 	    := 668
-global D_Y1 		:= 980
-global D_X2 		:= 957
-global D_Y2 		:= 1037
-
-global ImageE 	    := "等级界面_空格跳过.jpg"
-global E_X1	 	    := 920
-global E_Y1 		:= 415
-global E_X2 		:= 1002
-global E_Y2 		:= 467
-
-global ImageF 	    := "开始征神.jpg"
-global F_X1	 	    := 1735
-global F_Y1 		:= 947
-global F_X2 		:= 1896
-global F_Y2 		:= 1046
-global F_XClickPos  := 1700
-global F_YClickPos  := 998
-
-global ImageG       := "继续_升级恭喜获得.jpg"
-global G_X1	 	    := 800
-global G_Y1 		:= 800
-global G_X2 		:= 1100
-global G_Y2 		:= 916
+global Challenging          := 0
 
 
-; 雪满弓刀-坚冰阴凝
-global Attack_X1         := 90
-global Attack_Y1         := 139
-global Attack_X2         := 181
-global Attack_Y2         := 167
-
-
-; 通关成功
-global Pass_X1      := 901
-global Pass_Y1      := 165
-global Pass_X2      := 1019
-global Pass_Y2      := 199
-
-
-global ImageB 	    := "已获得胜利.jpg"
-global B_X1	 	    := 626
-global B_Y1 		:= 366
-global B_X2 		:= 1285
-global B_Y2 		:= 662
-global B_XClickPos0 := 961
-global B_YClickPos0 := 779
-
-
-#MenuMaskKey vkFF				
+#MenuMaskKey vkFF
 ; 修改默认模拟击键，否则按下win/alt松开之前，会默认触发Ctrl键
 ; Debug时可以使用KeyCastOW来测试具体按下什么键
 ; https://wyagd001.github.io/zh-cn/docs/Hotkeys.htm
 ; https://wyagd001.github.io/zh-cn/docs/commands/_MenuMaskKey.htm
 
 
-; 日志文件路径
-logFilePath := "script_log.txt"
+if not A_IsAdmin {
+	MsgBox, 请使用管理员权限运行本程序。
+	ExitApp
+}
+
 
 Log(message) {
-    global logFilePath
+    logFilePath := "script_log.txt"
     timestamp := A_Now
     formattedMessage := "[" . timestamp . "] " . message . "`n"
     FileAppend, %formattedMessage%, %logFilePath%
 }
 
 
-if not A_IsAdmin
-{
-	MsgBox, 请使用管理员权限运行本程序。
-	ExitApp
-}
-
-
-AutoAttack()
-{
-    ; 锁定攻击目标
-    Send {~}
-    
-    OnLoopingAttack = 1
-	Loop
-	{
-		if (OnLoopingAttack = 0)
-		{
-            Return
-        }
-        else
-        {
-            result := PaddleOCR([Pass_X1, Pass_Y1, Pass_X2-Pass_X1, Pass_Y2-Pass_Y1])
-            ; Log(result)
-            
-            ; 此处判断涉及中文编码方式，务必保证ahk脚本文件采用UTF8-BOM编码
-            if (result == "通关成功")
-            {
-                OnLoopingAttack = 0
-                EscAfterSuccess()
-                Return
-            }
-            
-            else
-            {
-                ; 平击
-                MouseClick
-            }
-        }
-
-        Sleep, %SleepTimePerLoopAttack%
-    }
-}
-
-
-EscAfterSuccess()
-{
-    Send {Esc}
-    Sleep, 200
-
-    MouseClick, , %B_XClickPos0%, %B_YClickPos0%
-    Sleep, 500
-    
-    ImageSearch, FoundX, FoundY, B_X1, B_Y1, B_X2, B_Y2, *80 %ImageB%
+MyImageSearch(Image, X1, Y1, X2, Y2) {
+    ImageSearch, FoundX, FoundY, X1, Y1, X2, Y2, *80 %Image%
     
     if (ErrorLevel = 2){
-        MsgBox 查找图像失败，请确保%ImageB%与本程序在同一目录下
+        Log(2222)
+        MsgBox 查找图像失败，请确保%Image%与本程序在同一目录下
         ExitApp
     }
         
-    ; 同时也没找到%ImageB%的图像
+    ; 屏幕中没找到指定图像
     else if (ErrorLevel = 1){
-        		
+        Log(1111)
+        Return 0
     }
     
-    ; 找到了%ImageB%
-    else
-    {
-        Send {Space}
+    ; 屏幕中找到了指定图像
+    else {
+        Log(0000)
+        Return 1
     }
 }
 
 
-Run()
-{
-	OnLooping = 1
-	Loop
-	{
-		if (OnLooping = 0)
-		{
+MyMouseClick(X, Y) {
+    MouseClick, , %X%, %Y%
+}
+
+
+Run() {
+    OnLooping = 1
+	Loop {
+        Sleep, %SleepTimePerLoop%
+
+        if (OnLooping = 0) {
 			Return
 		}
-		else
-		{
+
+		else {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
 
-                ImageSearch, FoundX, FoundY, Z_X1, Z_Y1, Z_X2, Z_Y2, *80 %ImageZ%
-				
-                if (ErrorLevel = 2){
-                    MsgBox 查找图像失败，请确保%ImageZ%与本程序在同一目录下
-                    ExitApp
+                if MyImageSearch("开始征神.jpg", 1735, 947, 1896, 1046) {
+                    MyMouseClick(1700, 998)
+                    continue
                 }
                 
-                ; 没找到%ImageZ%的图像
-                else if (ErrorLevel = 1){		
-                  
-                    ImageSearch, FoundX, FoundY, A_X1, A_Y1, A_X2, A_Y2, *80 %ImageA%
-                
-                    if (ErrorLevel = 2){
-                        MsgBox 查找图像失败，请确保%ImageA%与本程序在同一目录下
-                        ExitApp
-                    }
-                    
-                    ; 没找到%ImageA%的图像
-                    else if (ErrorLevel = 1){		
-                        
-                        ImageSearch, FoundX, FoundY, C_X1, C_Y1, C_X2, C_Y2, *80 %ImageC%
-                    
-                        if (ErrorLevel = 2){
-                            MsgBox 查找图像失败，请确保%ImageC%与本程序在同一目录下
-                            ExitApp
-                        }
-                        
-                        ; 没找到%ImageC%的图像
-                        else if (ErrorLevel = 1){		
-                            
-                            ImageSearch, FoundX, FoundY, D_X1, D_Y1, D_X2, D_Y2, *80 %ImageD%
-                    
-                            if (ErrorLevel = 2){
-                                MsgBox 查找图像失败，请确保%ImageD%与本程序在同一目录下
-                                ExitApp
-                            }
-                            
-                            ; 没找到%ImageD%的图像
-                            else if (ErrorLevel = 1){		
-                                
-                                ImageSearch, FoundX, FoundY, E_X1, E_Y1, E_X2, E_Y2, *80 %ImageE%
-                    
-                                if (ErrorLevel = 2){
-                                    MsgBox 查找图像失败，请确保%ImageE%与本程序在同一目录下
-                                    ExitApp
-                                }
-                                
-                                ; 没找到%ImageE%的图像
-                                else if (ErrorLevel = 1){
-                                    
-                                    ImageSearch, FoundX, FoundY, F_X1, F_Y1, F_X2, F_Y2, *80 %ImageF%
-                                
-                                    if (ErrorLevel = 2){
-                                        MsgBox 查找图像失败，请确保%ImageF%与本程序在同一目录下
-                                        ExitApp
-                                    }
-                                    
-                                    ; 没找到%ImageF%的图像
-                                    else if (ErrorLevel = 1){		
-                                        
-                                        ImageSearch, FoundX, FoundY, G_X1, G_Y1, G_X2, G_Y2, *80 %ImageG%
-                                    
-                                        if (ErrorLevel = 2){
-                                            MsgBox 查找图像失败，请确保%ImageG%与本程序在同一目录下
-                                            ExitApp
-                                        }
-                                        
-                                        ; 没找到%ImageG%的图像
-                                        else if (ErrorLevel = 1){
-                                            
-                                            result := PaddleOCR([Attack_X1, Attack_Y1, Attack_X2-Attack_X1, Attack_Y2-Attack_Y1])
-                                            Log(result)
-                                            
-                                            ; 此处判断涉及中文编码方式，务必保证ahk脚本文件采用UTF8-BOM编码
-                                            if (result == "坚冰阴凝")
-                                            {
-                                                AutoAttack()
-                                            }
-                                            
-                                            else
-                                            {
-                                                ;
-                                            }
-                                        }
+                if MyImageSearch("使用英雄.jpg", 1599, 914, 1678, 961) {
+                    MyMouseClick(1643, 941)
+                    continue
+                }
 
-                                        ; 找到了%ImageG%
-                                        else
-                                        {
-                                            Send {Space}
-                                        }
-                                    }
-                                    
-                                    ; 找到了%ImageF%
-                                    else
-                                    {
-                                        MouseClick, , %F_XClickPos%, %F_YClickPos%
-                                    }
-                                }
-                                
-                                ; 找到了%ImageE%
-                                else
-                                {
-                                    Send {Space}
-                                }
-                            }
-                            
-                            ; 找到了%ImageD%
-                            else
-                            {
-                                Send {Space}
-                            }
-                        }
-                        
-                        ; 找到了%ImageC%
-                        else
-                        {
-                            Send {Space}
-                        }
+                if MyImageSearch("ESC.jpg", 1760, 1018, 1920, 1080) {
+                    ; 可能由于队友不及时跳过，导致一直在按ESC
+                    ; 从而导致开打后的第一时间又多按了一个ESC
+                    ; 因此这里设置一定时间内只按一次ESC
+                    if (A_Now > LastSkipCGTimestamp + PressEscTimeInterval) {
+                        Send {Esc}
+                        LastSkipCGTimestamp = A_Now
                     }
-                    
-                    ; 找到了%ImageA%
-                    else
-                    {   
-                        ; 跳过开场动画。可能由于队友不及时跳过，导致一直在按ESC
-                        ; 从而导致开打后的第一时间又多按了一个ESC
-                        ; 因此这里设置一定时间内只按一次ESC
-                        if (A_Now > LastSkipCGTimestamp + PressEscTimeInterval) {
-                            Send {Esc}
-                            LastSkipCGTimestamp = A_Now
-                        }
-                    }
+                    continue
                 }
                 
-                ; 找到了%ImageZ%
-                else
-                {
-                    MouseClick, , %Z_XClickPos%, %Z_YClickPos%
+                ; 等下的IF判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
+                ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
+                result := PaddleOCR([90, 139, 181-90, 167-139])
+                
+                ; 还没过动画，也没开打
+                if (result == "势比登天") {
+                    Send {w Down}
+                    Sleep, 500
+                    Send {w Up}
+                    continue
                 }
-			}
-		}
 
-        Sleep, %SleepTimePerLoop%
-	}
+                ; 过完了动画，开打
+                else if (result == "坚冰阴凝") {
+                    ; 锁定目标
+                    if (Challenging = 0) {
+                        Send {~}
+                        Challenging = 1
+                    }
+                    ; 平击
+                    MouseClick
+                    continue
+                }
+         
+                result := PaddleOCR([901, 165, 1019-901, 199-165])          
+                if (result == "通关成功") {
+                    Challenging = 0
+
+                    Send {Esc}
+                    Sleep, 200
+
+                    MyMouseClick(961, 779)
+                    Sleep, 500
+                    
+                    if MyImageSearch("已获得胜利.jpg", 626, 366, 1285, 662) {
+                        Send {Space}
+                    }
+                    continue
+                }
+
+                if MyImageSearch("返魂后传送.jpg", 1075, 633, 1187, 688) {
+                    Challenging = 0
+                    Send {e}
+                    continue
+                }
+
+                if MyImageSearch("继续_铸就传奇界面.jpg", 897, 1028, 1024, 1069) {
+                    Send {Space}
+                    continue
+                }
+
+                if MyImageSearch("继续_红色按钮.jpg", 668, 980, 957, 1037) {
+                    Send {Space}
+                    continue
+                }
+
+                if MyImageSearch("继续_升级恭喜获得.jpg", 800, 800, 1100, 916) {
+                    Send {Space}
+                    continue
+                }
+
+                if MyImageSearch("等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
+                    Send {Space}
+                    continue
+                }
+            }
+        }
+    }
 }
 
 
-Stop()
-{
-    OnLoopingAttack = 0
+Stop() {
 	OnLooping = 0
 }
 
