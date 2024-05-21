@@ -6,7 +6,7 @@ global SleepTimePerLoop 	:= 400
 global OnLooping 			:= 0
 
 
-global ImageZ       := "使用英雄.jpg"
+global ImageZ       := "Img\使用英雄.jpg"
 global Z_X1	 	    := 1599
 global Z_Y1 		:= 914
 global Z_X2 		:= 1678
@@ -14,31 +14,31 @@ global Z_Y2 		:= 961
 global Z_XClickPos  := 1643
 global Z_YClickPos  := 941
 
-global ImageA 	    := "ESC.jpg"
+global ImageA 	    := "Img\ESC.jpg"
 global A_X1	 	    := 1760
 global A_Y1 		:= 1018
 global A_X2 		:= 1920
 global A_Y2 		:= 1080
 
-global ImageC 	    := "继续_铸就传奇界面.jpg"
+global ImageC 	    := "Img\继续_铸就传奇界面.jpg"
 global C_X1	 	    := 897
 global C_Y1 		:= 1028
 global C_X2 		:= 1024
 global C_Y2 		:= 1069
 
-global ImageD 	    := "继续_红色按钮.jpg"
+global ImageD 	    := "Img\继续_红色按钮.jpg"
 global D_X1	 	    := 668
 global D_Y1 		:= 980
 global D_X2 		:= 957
 global D_Y2 		:= 1037
 
-global ImageE 	    := "等级界面_空格跳过.jpg"
+global ImageE 	    := "Img\等级界面_空格跳过.jpg"
 global E_X1	 	    := 920
 global E_Y1 		:= 415
 global E_X2 		:= 1002
 global E_Y2 		:= 467
 
-global ImageF 	    := "开始征神.jpg"
+global ImageF 	    := "Img\开始征神.jpg"
 global F_X1	 	    := 1735
 global F_Y1 		:= 947
 global F_X2 		:= 1896
@@ -47,7 +47,7 @@ global F_XClickPos  := 1700
 global F_YClickPos  := 998
 
 
-global ImageB 	    := "已获得胜利.jpg"
+global ImageB 	    := "Img\已获得胜利.jpg"
 global B_X1	 	    := 626
 global B_Y1 		:= 366
 global B_X2 		:= 1285

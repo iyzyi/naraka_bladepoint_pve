@@ -70,17 +70,17 @@ Run() {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
 
-                if MyImageSearch("开始征神.jpg", 1735, 947, 1896, 1046) {
+                if MyImageSearch("Img\开始征神.jpg", 1735, 947, 1896, 1046) {
                     MyMouseClick(1700, 998)
                     continue
                 }
                 
-                if MyImageSearch("使用英雄.jpg", 1599, 914, 1678, 961) {
+                if MyImageSearch("Img\使用英雄.jpg", 1599, 914, 1678, 961) {
                     MyMouseClick(1643, 941)
                     continue
                 }
 
-                if MyImageSearch("跳过_CG.jpg", 1716, 1002, 1920, 1080) {
+                if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
                     ; 可能由于队友不及时跳过，导致一直在按ESC
                     ; 从而导致开打后的第一时间又多按了一个ESC
                     ; 因此这里设置一定时间内只按一次ESC
@@ -92,7 +92,7 @@ Run() {
                 }
 
                 ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
-                if MyImageSearch("返魂后传送.jpg", 1075, 633, 1187, 688) {
+                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
                     Send {e}
                     Sleep 2500
@@ -107,8 +107,9 @@ Run() {
                 ; 开打前
                 if (result == "势比登天") {
                     Send {w Down}
-                    Send {Shift}
-                    Sleep, 500
+                    Send {Shift Down}
+                    Sleep, 1000
+                    Send {Shift Up}
                     Send {w Up}
                     continue
                 }
@@ -135,43 +136,43 @@ Run() {
                     MyMouseClick(961, 779)
                     Sleep, 500
                     
-                    if MyImageSearch("已获得胜利.jpg", 626, 366, 1285, 662) {
+                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
                         Send {Space}
                     }
                     continue
                 }
 
-                if MyImageSearch("继续_铸就传奇界面.jpg", 897, 1028, 1024, 1069) {
+                if MyImageSearch("Img\继续_铸就传奇界面.jpg", 897, 1028, 1024, 1069) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("放弃重生.jpg", 886, 1027, 986, 1071) {
+                if MyImageSearch("Img\放弃重生.jpg", 886, 1027, 986, 1071) {
                     MyMouseClick(441, 589)
                     continue
                 }
 
-                if MyImageSearch("继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
+                if MyImageSearch("Img\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("继续_红色按钮.jpg", 668, 980, 957, 1037) {
+                if MyImageSearch("Img\继续_红色按钮.jpg", 668, 980, 957, 1037) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("继续_升级恭喜获得.jpg", 800, 800, 1100, 916) {
+                if MyImageSearch("Img\继续_升级恭喜获得.jpg", 800, 800, 1100, 916) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
+                if MyImageSearch("Img\等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("英雄等级界面_空格跳过.jpg", 922, 417, 992, 461) {
+                if MyImageSearch("Img\英雄等级界面_空格跳过.jpg", 922, 417, 992, 461) {
                     Send {Space}
                     continue
                 }
