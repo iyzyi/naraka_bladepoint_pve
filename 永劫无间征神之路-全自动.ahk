@@ -6,7 +6,7 @@ global SleepTimePerLoop     := 250
 global OnLooping 		    := 0
 
 global LastSkipCGTimestamp  := 0
-global PressEscTimeInterval := 60   ; 秒
+global PressEscTimeInterval := 30   ; 秒
 
 global Challenging          := 0
 
@@ -36,20 +36,17 @@ MyImageSearch(Image, X1, Y1, X2, Y2) {
     ImageSearch, FoundX, FoundY, X1, Y1, X2, Y2, *80 %Image%
     
     if (ErrorLevel = 2){
-        Log(2222)
         MsgBox 查找图像失败，请确保%Image%与本程序在同一目录下
         ExitApp
     }
         
     ; 屏幕中没找到指定图像
     else if (ErrorLevel = 1){
-        Log(1111)
         Return 0
     }
     
     ; 屏幕中找到了指定图像
     else {
-        Log(0000)
         Return 1
     }
 }
@@ -83,7 +80,7 @@ Run() {
                     continue
                 }
 
-                if MyImageSearch("ESC.jpg", 1760, 1018, 1920, 1080) {
+                if MyImageSearch("跳过_CG.jpg", 1716, 1002, 1920, 1080) {
                     ; 可能由于队友不及时跳过，导致一直在按ESC
                     ; 从而导致开打后的第一时间又多按了一个ESC
                     ; 因此这里设置一定时间内只按一次ESC
@@ -97,6 +94,7 @@ Run() {
                 ; 等下的IF判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
                 ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
                 result := PaddleOCR([90, 139, 181-90, 167-139])
+                ; Log(result)
                 
                 ; 还没过动画，也没开打
                 if (result == "势比登天") {
