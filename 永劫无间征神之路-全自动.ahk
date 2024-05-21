@@ -191,6 +191,11 @@ Run() {
                     Send {Space}
                     continue
                 }
+
+                if MyImageSearch("Img\全新武技.jpg", 892, 301, 1028, 357) {
+                    Send {Esc}
+                    continue
+                }
             }
         }
     }
