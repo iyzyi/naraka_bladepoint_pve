@@ -90,6 +90,13 @@ Run() {
                     }
                     continue
                 }
+
+                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
+                if MyImageSearch("返魂后传送.jpg", 1075, 633, 1187, 688) {
+                    Challenging = 0
+                    Send {e}
+                    continue
+                }
                 
                 ; 等下的IF判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
                 ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
@@ -99,6 +106,7 @@ Run() {
                 ; 还没过动画，也没开打
                 if (result == "势比登天") {
                     Send {w Down}
+                    Send {Shift}
                     Sleep, 500
                     Send {w Up}
                     continue
@@ -129,12 +137,6 @@ Run() {
                     if MyImageSearch("已获得胜利.jpg", 626, 366, 1285, 662) {
                         Send {Space}
                     }
-                    continue
-                }
-
-                if MyImageSearch("返魂后传送.jpg", 1075, 633, 1187, 688) {
-                    Challenging = 0
-                    Send {e}
                     continue
                 }
 
