@@ -121,7 +121,7 @@ Run() {
                 result := PaddleOCR([851, 252, 1077-851, 313-252])
                 if (result == "等待救援") {
                     Send {e Down}
-                    Sleep 3000
+                    Sleep 4000
                     Send {e Up}
                     continue
                 }
@@ -133,9 +133,6 @@ Run() {
                 if (result == "势比登天") {
                     Send {w Down}
                     Send {Shift Down}
-                    Sleep, 1000
-                    Send {Shift Up}
-                    Send {w Up}
                     continue
                 }
 
