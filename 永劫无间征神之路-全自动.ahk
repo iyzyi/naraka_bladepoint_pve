@@ -58,6 +58,10 @@ MyMouseClick(X, Y) {
 
 
 Run() {
+    if (OnLooping = 1) {
+        Return
+    }
+
     OnLooping = 1
 	Loop {
         Sleep, %SleepTimePerLoop%
@@ -94,6 +98,8 @@ Run() {
                 ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
                 if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
+                    Send {w Up}
+                    Send {Shift Up}
                     Send {e}
                     Sleep 2500
                     continue
