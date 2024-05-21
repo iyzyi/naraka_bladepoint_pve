@@ -95,6 +95,7 @@ Run() {
                 if MyImageSearch("返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
                     Send {e}
+                    Sleep 2500
                     continue
                 }
                 
@@ -103,7 +104,7 @@ Run() {
                 result := PaddleOCR([90, 139, 181-90, 167-139])
                 ; Log(result)
                 
-                ; 还没过动画，也没开打
+                ; 开打前
                 if (result == "势比登天") {
                     Send {w Down}
                     Send {Shift}
@@ -112,7 +113,7 @@ Run() {
                     continue
                 }
 
-                ; 过完了动画，开打
+                ; 开打后
                 else if (result == "坚冰阴凝") {
                     ; 锁定目标
                     if (Challenging = 0) {
@@ -145,6 +146,16 @@ Run() {
                     continue
                 }
 
+                if MyImageSearch("放弃重生.jpg", 886, 1027, 986, 1071) {
+                    MyMouseClick(441, 589)
+                    continue
+                }
+
+                if MyImageSearch("继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
+                    Send {Space}
+                    continue
+                }
+
                 if MyImageSearch("继续_红色按钮.jpg", 668, 980, 957, 1037) {
                     Send {Space}
                     continue
@@ -156,6 +167,11 @@ Run() {
                 }
 
                 if MyImageSearch("等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
+                    Send {Space}
+                    continue
+                }
+
+                if MyImageSearch("英雄等级界面_空格跳过.jpg", 922, 417, 992, 461) {
                     Send {Space}
                     continue
                 }
