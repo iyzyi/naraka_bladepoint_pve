@@ -2,13 +2,13 @@
 ; AutoHotKey文档：https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm
 
 
-global SleepTimePerLoop     := 250
-global OnLooping 		    := 0
+global SleepTimePerLoop         := 250
+global OnLooping 		        := 0
 
-global LastSkipCGTimestamp  := 0
-global PressEscTimeInterval := 30   ; 秒
+global LastSkipCGTimeTickCount  := 0
+global PressEscTimeInterval     := 40000   ; ms
 
-global Challenging          := 0
+global Challenging              := 0
 
 
 #MenuMaskKey vkFF
@@ -84,9 +84,9 @@ Run() {
                     ; 可能由于队友不及时跳过，导致一直在按ESC
                     ; 从而导致开打后的第一时间又多按了一个ESC
                     ; 因此这里设置一定时间内只按一次ESC
-                    if (A_Now > LastSkipCGTimestamp + PressEscTimeInterval) {
+                    if (A_TickCount > LastSkipCGTimeTickCount + PressEscTimeInterval) {
                         Send {Esc}
-                        LastSkipCGTimestamp = A_Now
+                        LastSkipCGTimeTickCount := A_TickCount
                     }
                     continue
                 }
@@ -99,8 +99,33 @@ Run() {
                     continue
                 }
                 
-                ; 等下的IF判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
+                ; 此处判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
                 ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
+                result := PaddleOCR([901, 165, 1019-901, 199-165])          
+                if (result == "通关成功") {
+                    Challenging = 0
+
+                    Send {Esc}
+                    Sleep, 200
+
+                    MyMouseClick(961, 779)
+                    Sleep, 500
+                    
+                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
+                        Send {Space}
+                    }
+                    continue
+                }
+                
+                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
+                result := PaddleOCR([851, 252, 1077-851, 313-252])
+                if (result == "等待救援") {
+                    Send {e Down}
+                    Sleep 3000
+                    Send {e Up}
+                    continue
+                }
+                
                 result := PaddleOCR([90, 139, 181-90, 167-139])
                 ; Log(result)
                 
@@ -125,34 +150,19 @@ Run() {
                     MouseClick
                     continue
                 }
-         
-                result := PaddleOCR([901, 165, 1019-901, 199-165])          
-                if (result == "通关成功") {
-                    Challenging = 0
-
-                    Send {Esc}
-                    Sleep, 200
-
-                    MyMouseClick(961, 779)
-                    Sleep, 500
-                    
-                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
-                        Send {Space}
-                    }
-                    continue
-                }
 
                 if MyImageSearch("Img\继续_铸就传奇界面.jpg", 897, 1028, 1024, 1069) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("Img\放弃重生.jpg", 886, 1027, 986, 1071) {
-                    MyMouseClick(441, 589)
+                if MyImageSearch("Img\放弃重生.jpg", 379, 565, 475, 608) {
+                    Send {F6}
                     continue
                 }
 
                 if MyImageSearch("Img\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
+                    Challenging = 0
                     Send {Space}
                     continue
                 }
