@@ -85,6 +85,9 @@ Run() {
                 }
 
                 if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
+                    Send {w Up}
+                    Send {Shift Up}
+                    
                     ; 可能由于队友不及时跳过，导致一直在按ESC
                     ; 从而导致开打后的第一时间又多按了一个ESC
                     ; 因此这里设置一定时间内只按一次ESC
@@ -98,8 +101,6 @@ Run() {
                 ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
                 if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
-                    Send {w Up}
-                    Send {Shift Up}
                     Send {e}
                     Sleep 2500
                     continue
