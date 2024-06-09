@@ -78,6 +78,11 @@ Run() {
                     MyMouseClick(1700, 998)
                     continue
                 }
+
+                if MyImageSearch("Img\疲劳值.jpg", 746, 487, 1008, 588) {
+                    MyMouseClick(797, 624)
+                    continue
+                }
                 
                 if MyImageSearch("Img\使用英雄.jpg", 1599, 914, 1678, 961) {
                     MyMouseClick(1643, 941)
@@ -153,6 +158,11 @@ Run() {
                     }
                     ; 平击
                     MouseClick
+                    continue
+                }
+
+                if MyImageSearch("Img\获得头像框.jpg", 797, 881, 1063, 978) {
+                    Send {Space}
                     continue
                 }
 
