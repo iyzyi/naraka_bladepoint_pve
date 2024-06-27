@@ -206,6 +206,11 @@ Run() {
                     Send {Esc}
                     continue
                 }
+
+                if MyImageSearch("Img\白泽.jpg", 1390, 326, 1485, 390) {
+                    MyMouseClick(1200, 900)
+                    continue
+                }
             }
         }
     }
