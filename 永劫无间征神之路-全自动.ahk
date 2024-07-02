@@ -211,6 +211,11 @@ Run() {
                     MyMouseClick(1200, 900)
                     continue
                 }
+
+                if MyImageSearch("Img\跳过_广告.jpg", 1795, 1032, 1898, 1078) {
+                    Send {Esc}
+                    continue
+                }
             }
         }
     }
