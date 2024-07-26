@@ -130,7 +130,7 @@ Run() {
                     if (Challenging = 0) {
                         Send {~}
                         Challenging = 1
-                        ChallengeBeginTime = A_TickCount
+                        ChallengeBeginTime := A_TickCount
                     }
                     
                     if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
