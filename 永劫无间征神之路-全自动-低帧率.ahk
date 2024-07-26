@@ -2,11 +2,13 @@
 ; AutoHotKey文档：https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm
 
 
-global SleepTimePerLoop         := 100
+global SleepTimePerLoop         := 0
 global OnLooping 		        := 0
 
 global LastSkipCGTimeTickCount  := 0
 global PressEscTimeInterval     := 40000   ; ms
+
+global ChallengeBeginTime       := 0
 
 global Challenging              := 0
 
@@ -64,7 +66,7 @@ Run() {
 
     OnLooping = 1
 	Loop {
-        Sleep, %SleepTimePerLoop%
+        ;Sleep, %SleepTimePerLoop%
 
         if (OnLooping = 0) {
 			Return
@@ -84,7 +86,7 @@ Run() {
                 
                 ; 此处判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
                 ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
-                result := PaddleOCR([901, 165, 1019-901, 199-165])          
+                result := PaddleOCR([901, 165, 1019-901, 199-165])
                 if (result == "通关成功") {
                     Challenging = 0
 
@@ -127,6 +129,10 @@ Run() {
                         Send {~}
                         Challenging = 1
                     }
+                    
+                    ; 红叶F技能
+                    Send, {F}
+                    
                     ; 平击
                     MouseClick
                     continue
