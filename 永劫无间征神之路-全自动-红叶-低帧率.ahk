@@ -6,11 +6,11 @@ global SleepTimePerLoop         := 0
 global OnLooping 		        := 0
 
 global LastSkipCGTimeTickCount  := 0
-global PressEscTimeInterval     := 40000   ; ms
-
-global ChallengeBeginTime       := 0
+global PressEscTimeInterval     := 40000    ; ms
 
 global Challenging              := 0
+global ChallengeBeginTime       := 0
+global PressFTimeAfterBegin     := 8000     ; ms
 
 
 #MenuMaskKey vkFF
@@ -79,6 +79,7 @@ Run() {
                 ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
                 if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
+                    ChallengeBeginTime = 0
                     Send {e}
                     Sleep 2500
                     continue
@@ -89,6 +90,7 @@ Run() {
                 result := PaddleOCR([901, 165, 1019-901, 199-165])
                 if (result == "通关成功") {
                     Challenging = 0
+                    ChallengeBeginTime = 0
 
                     Send {Esc}
                     Sleep, 200
@@ -128,10 +130,13 @@ Run() {
                     if (Challenging = 0) {
                         Send {~}
                         Challenging = 1
+                        ChallengeBeginTime = A_TickCount
                     }
                     
-                    ; 红叶F技能
-                    Send, f
+                    if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
+                        ; 红叶F技能
+                        Send, f
+                    }
                     
                     ; 平击
                     MouseClick
@@ -184,6 +189,7 @@ Run() {
 
                 if MyImageSearch("Img\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
                     Challenging = 0
+                    ChallengeBeginTime = 0
                     Send {Space}
                     continue
                 }
