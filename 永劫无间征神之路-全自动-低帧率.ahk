@@ -2,7 +2,7 @@
 ; AutoHotKey文档：https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm
 
 
-global SleepTimePerLoop         := 250
+global SleepTimePerLoop         := 100
 global OnLooping 		        := 0
 
 global LastSkipCGTimeTickCount  := 0
@@ -74,35 +74,6 @@ Run() {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
 
-                if MyImageSearch("Img\开始征神.jpg", 1735, 947, 1896, 1046) {
-                    MyMouseClick(1700, 998)
-                    continue
-                }
-
-                if MyImageSearch("Img\疲劳值.jpg", 746, 487, 1008, 588) {
-                    MyMouseClick(797, 624)
-                    continue
-                }
-                
-                if MyImageSearch("Img\使用英雄.jpg", 1599, 914, 1678, 961) {
-                    MyMouseClick(1643, 941)
-                    continue
-                }
-
-                if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
-                    Send {w Up}
-                    Send {Shift Up}
-                    
-                    ; 可能由于队友不及时跳过，导致一直在按ESC
-                    ; 从而导致开打后的第一时间又多按了一个ESC
-                    ; 因此这里设置一定时间内只按一次ESC
-                    if (A_TickCount > LastSkipCGTimeTickCount + PressEscTimeInterval) {
-                        Send {Esc}
-                        LastSkipCGTimeTickCount := A_TickCount
-                    }
-                    continue
-                }
-
                 ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
                 if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
@@ -158,6 +129,35 @@ Run() {
                     }
                     ; 平击
                     MouseClick
+                    continue
+                }
+
+                if MyImageSearch("Img\开始征神.jpg", 1735, 947, 1896, 1046) {
+                    MyMouseClick(1700, 998)
+                    continue
+                }
+
+                if MyImageSearch("Img\疲劳值.jpg", 746, 487, 1008, 588) {
+                    MyMouseClick(797, 624)
+                    continue
+                }
+                
+                if MyImageSearch("Img\使用英雄.jpg", 1599, 914, 1678, 961) {
+                    MyMouseClick(1643, 941)
+                    continue
+                }
+
+                if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
+                    Send {w Up}
+                    Send {Shift Up}
+                    
+                    ; 可能由于队友不及时跳过，导致一直在按ESC
+                    ; 从而导致开打后的第一时间又多按了一个ESC
+                    ; 因此这里设置一定时间内只按一次ESC
+                    if (A_TickCount > LastSkipCGTimeTickCount + PressEscTimeInterval) {
+                        Send {Esc}
+                        LastSkipCGTimeTickCount := A_TickCount
+                    }
                     continue
                 }
 
