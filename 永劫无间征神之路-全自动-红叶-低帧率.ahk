@@ -10,7 +10,7 @@ global PressEscTimeInterval     := 40000    ; ms
 
 global Challenging              := 0
 global ChallengeBeginTime       := 0
-global PressFTimeAfterBegin     := 8000     ; ms
+global PressFTimeAfterBegin     := 5500     ; ms
 
 
 #MenuMaskKey vkFF
@@ -225,6 +225,11 @@ Run() {
                 }
 
                 if MyImageSearch("Img\跳过_广告.jpg", 1795, 1032, 1898, 1078) {
+                    Send {Esc}
+                    continue
+                }
+
+                if MyImageSearch("Img\退至桌面.jpg", 899, 820, 1022, 874) {
                     Send {Esc}
                     continue
                 }
