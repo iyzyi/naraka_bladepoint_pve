@@ -130,6 +130,9 @@ Run() {
                         Challenging = 1
                     }
                     
+                    ; 红叶F技能
+                    Send, f
+                    
                     ; 平击
                     MouseClick
                     continue
