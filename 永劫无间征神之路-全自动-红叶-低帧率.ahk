@@ -12,7 +12,7 @@ global Challenging              := 0
 global ChallengeBeginTime       := 0
 global PressFTimeAfterBegin     := 5000     ; ms
 
-global AttackTimeInterval       := 25       ; ms
+global AttackTimeInterval       := 10       ; ms
 
 
 #MenuMaskKey vkFF
@@ -77,35 +77,6 @@ Run() {
 		else {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
-
-                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
-                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
-                    Challenging = 0
-                    ChallengeBeginTime = 0
-                    Send {e}
-                    Sleep 2500
-                    continue
-                }
-                
-                ; 此处判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
-                ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
-                result := PaddleOCR([901, 165, 1019-901, 199-165])
-                if (result == "通关成功") {
-                    Challenging = 0
-                    ChallengeBeginTime = 0
-
-                    Send {Esc}
-                    Sleep, 200
-
-                    MyMouseClick(961, 779)
-                    Sleep, 500
-                    
-                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
-                        Send {Space}
-                    }
-                    continue
-                }
-                
                 result := PaddleOCR([90, 139, 181-90, 167-139])
                 ; Log(result)
                 
@@ -137,6 +108,34 @@ Run() {
                     ; 平击
                     MouseClick
                     Sleep, %AttackTimeInterval%
+                    continue
+                }
+                
+                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
+                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
+                    Challenging = 0
+                    ChallengeBeginTime = 0
+                    Send {e}
+                    Sleep 2500
+                    continue
+                }
+
+                ; 此处判断涉及中文编码方式，务必保证AHK脚本文件采用UTF8-BOM编码
+                ; 参考 https://stackoverflow.com/questions/17885331/autohotkey-string-comparison
+                result := PaddleOCR([901, 165, 1019-901, 199-165])
+                if (result == "通关成功") {
+                    Challenging = 0
+                    ChallengeBeginTime = 0
+
+                    Send {Esc}
+                    Sleep, 200
+
+                    MyMouseClick(961, 779)
+                    Sleep, 500
+                    
+                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
+                        Send {Space}
+                    }
                     continue
                 }
 
