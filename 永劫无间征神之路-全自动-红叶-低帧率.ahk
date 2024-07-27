@@ -10,7 +10,7 @@ global PressEscTimeInterval     := 40000    ; ms
 
 global Challenging              := 0
 global ChallengeBeginTime       := 0
-global PressFTimeAfterBegin     := 5500     ; ms
+global PressFTimeAfterBegin     := 4000     ; ms
 
 
 #MenuMaskKey vkFF
@@ -132,14 +132,16 @@ Run() {
                         Challenging = 1
                         ChallengeBeginTime := A_TickCount
                     }
-                    
-                    if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
-                        ; 红叶F技能
-                        Send, f
+
+                    if MyImageSearch("Img\F.jpg", 818, 977, 856, 1018) {
+                        ; 平击
+                        MouseClick
+                    } else{
+                        if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
+                            ; 红叶F技能
+                            Send, f
+                        }
                     }
-                    
-                    ; 平击
-                    MouseClick
                     continue
                 }
 
