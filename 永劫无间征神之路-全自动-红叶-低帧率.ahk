@@ -10,7 +10,9 @@ global PressEscTimeInterval     := 40000    ; ms
 
 global Challenging              := 0
 global ChallengeBeginTime       := 0
-global PressFTimeAfterBegin     := 4000     ; ms
+global PressFTimeAfterBegin     := 5000     ; ms
+
+global AttackTimeInterval       := 25       ; ms
 
 
 #MenuMaskKey vkFF
@@ -133,16 +135,18 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if !MyImageSearch("Img\F.jpg", 818, 977, 856, 1018) {
+                    if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
                         if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
                             ; 红叶F技能
                             Send, f
+                            Sleep, %AttackTimeInterval%
                             continue
                         }
                     }
 
                     ; 平击
                     MouseClick
+                    Sleep, %AttackTimeInterval%
                     continue
                 }
 
