@@ -106,16 +106,6 @@ Run() {
                     continue
                 }
                 
-                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
-                result := PaddleOCR([851, 252, 1077-851, 313-252])
-                if (result == "等待救援") {
-                    Sleep, 1000
-                    Send {e Down}
-                    Sleep 4000
-                    Send {e Up}
-                    continue
-                }
-                
                 result := PaddleOCR([90, 139, 181-90, 167-139])
                 ; Log(result)
                 
