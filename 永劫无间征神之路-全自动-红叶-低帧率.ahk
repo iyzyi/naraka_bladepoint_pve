@@ -133,15 +133,16 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if MyImageSearch("Img\F.jpg", 818, 977, 856, 1018) {
-                        ; 平击
-                        MouseClick
-                    } else{
+                    if !MyImageSearch("Img\F.jpg", 818, 977, 856, 1018) {
                         if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
                             ; 红叶F技能
                             Send, f
+                            continue
                         }
                     }
+
+                    ; 平击
+                    MouseClick
                     continue
                 }
 
