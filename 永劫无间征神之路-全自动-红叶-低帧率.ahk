@@ -12,9 +12,6 @@ global Challenging              := 0
 global ChallengeBeginTime       := 0
 global PressFTimeAfterBegin     := 5000     ; ms
 
-global PressSiXiangAfterBegin   := 1500     ; ms
-global FirstSiXiang             := 0
-
 global AttackTimeInterval       := 10       ; ms
 
 
@@ -84,8 +81,6 @@ Run() {
                 if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
                     ChallengeBeginTime = 0
-                    FirstSiXiang = 0
-
                     Send {e}
                     Sleep 2500
                     continue
@@ -110,17 +105,6 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if (FirstSiXiang = 0) {
-                        Sleep, 200
-                        Send {Shift}
-                        Sleep, 200
-                        Send {Shift}
-                        Sleep, %PressSiXiangAfterBegin%
-                        SiXiang()
-                        FirstSiXiang = 1
-                        continue
-                    }
-
                     if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
                         if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
                             ; 红叶F技能
@@ -142,7 +126,6 @@ Run() {
                 if (result == "通关成功") {
                     Challenging = 0
                     ChallengeBeginTime = 0
-                    FirstSiXiang = 0
 
                     Send {Esc}
                     Sleep, 200
@@ -171,10 +154,10 @@ Run() {
                     continue
                 }
 
-                if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {    
+                if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
                     Send {w Up}
                     Send {Shift Up}
-                
+                    
                     ; 可能由于队友不及时跳过，导致一直在按ESC
                     ; 从而导致开打后的第一时间又多按了一个ESC
                     ; 因此这里设置一定时间内只按一次ESC
@@ -203,7 +186,6 @@ Run() {
                 if MyImageSearch("Img\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
                     Challenging = 0
                     ChallengeBeginTime = 0
-                    FirstSiXiang = 0
                     Send {Space}
                     continue
                 }
@@ -255,18 +237,6 @@ Run() {
 
 Stop() {
 	OnLooping = 0
-}
-
-
-SiXiang() {
-	Send {LButton down}
-    Sleep, 200
-	Send {RButton down}
-    Sleep, 50
-	Send {LButton up}
-	Send {RButton up}
-    Sleep, 200
-    Send, {LButton}
 }
 
 
