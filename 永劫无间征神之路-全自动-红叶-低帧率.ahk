@@ -131,6 +131,7 @@ Run() {
                     Sleep, 200
 
                     MyMouseClick(961, 779)
+                    Sleep, 200
                     continue
                 }
 
