@@ -14,9 +14,6 @@ global PressFTimeAfterBegin     := 5000     ; ms
 
 global AttackTimeInterval       := 10       ; ms
 
-global Last3A                   := 0
-global AllowFAfterLast3A        := 1000     ; ms
-
 
 #MenuMaskKey vkFF
 ; 修改默认模拟击键，否则按下win/alt松开之前，会默认触发Ctrl键
@@ -41,26 +38,6 @@ Log(message) {
 
 MyImageSearch(Image, X1, Y1, X2, Y2) {
     ImageSearch, FoundX, FoundY, X1, Y1, X2, Y2, *80 %Image%
-    
-    if (ErrorLevel = 2){
-        MsgBox 查找图像失败，请确保%Image%与本程序在同一目录下
-        ExitApp
-    }
-        
-    ; 屏幕中没找到指定图像
-    else if (ErrorLevel = 1){
-        Return 0
-    }
-    
-    ; 屏幕中找到了指定图像
-    else {
-        Return 1
-    }
-}
-
-
-MyImageSearchStrict(Image, X1, Y1, X2, Y2) {
-    ImageSearch, FoundX, FoundY, X1, Y1, X2, Y2, *10 %Image%
     
     if (ErrorLevel = 2){
         MsgBox 查找图像失败，请确保%Image%与本程序在同一目录下
@@ -104,7 +81,6 @@ Run() {
                 if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
                     ChallengeBeginTime = 0
-                    Last3A = 0
                     Send {e}
                     Sleep 2500
                     continue
@@ -129,19 +105,12 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if MyImageSearchStrict("Img\3A蓝霸体.jpg", 0, 680, 1920, 1080) {
-                        Last3A = A_TickCount
-                        Log(%Last3A%)
-                    }
-
                     if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
                         if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
-                            if (A_TickCount > Last3A + AllowFAfterLast3A) {
-                                ; 红叶F技能
-                                Send, f
-                                Sleep, %AttackTimeInterval%
-                                continue
-                            }
+                            ; 红叶F技能
+                            Send, f
+                            Sleep, %AttackTimeInterval%
+                            continue
                         }
                     }
 
@@ -157,12 +126,16 @@ Run() {
                 if (result == "通关成功") {
                     Challenging = 0
                     ChallengeBeginTime = 0
-                    Last3A = 0
 
                     Send {Esc}
                     Sleep, 200
 
                     MyMouseClick(961, 779)
+                    Sleep, 500
+                    
+                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
+                        Send {Space}
+                    }
                     continue
                 }
 
@@ -213,7 +186,6 @@ Run() {
                 if MyImageSearch("Img\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
                     Challenging = 0
                     ChallengeBeginTime = 0
-                    Last3A = 0
                     Send {Space}
                     continue
                 }
@@ -251,10 +223,6 @@ Run() {
                 if MyImageSearch("Img\跳过_广告.jpg", 1795, 1032, 1898, 1078) {
                     Send {Esc}
                     continue
-                }
-
-                if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
-                    Send {Space}
                 }
 
                 if MyImageSearch("Img\退至桌面.jpg", 899, 820, 1022, 874) {
