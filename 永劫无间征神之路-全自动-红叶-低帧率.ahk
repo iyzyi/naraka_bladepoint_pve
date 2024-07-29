@@ -10,7 +10,7 @@ global PressEscTimeInterval     := 40000    ; ms
 
 global Challenging              := 0
 global ChallengeBeginTime       := 0
-global PressFTimeAfterBegin     := 4000     ; ms
+global PressFTimeAfterBegin     := 5000     ; ms
 
 global AttackTimeInterval       := 10       ; ms
 
@@ -105,20 +105,18 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if (A_TickCount < ChallengeBeginTime + PressFTimeAfterBegin) {
-                        SiXiang()
-                        continue
+                    if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
+                        if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
+                            ; 红叶F技能
+                            Send, f
+                            Sleep, %AttackTimeInterval%
+                            continue
+                        }
                     }
 
-                    if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
-                        ; 红叶F技能
-                        Send, f
-                        Sleep, %AttackTimeInterval%
-                    } else{
-                        ; 平击
-                        MouseClick
-                        Sleep, %AttackTimeInterval%
-                    }
+                    ; 平击
+                    MouseClick
+                    Sleep, %AttackTimeInterval%
                     continue
                 }
 
@@ -238,17 +236,6 @@ Run() {
 
 Stop() {
 	OnLooping = 0
-}
-
-
-SiXiang() {
-	Send {LButton down}
-    Sleep, 200
-	Send {RButton down}
-    Sleep, 50
-	Send {LButton up}
-	Send {RButton up}
-    Sleep, 100
 }
 
 
