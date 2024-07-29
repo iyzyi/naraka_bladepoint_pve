@@ -77,6 +77,15 @@ Run() {
 		else {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
+                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
+                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
+                    Challenging = 0
+                    ChallengeBeginTime = 0
+                    Send {e}
+                    Sleep 2500
+                    continue
+                }
+
                 result := PaddleOCR([90, 139, 181-90, 167-139])
                 ; Log(result)
                 
@@ -96,24 +105,11 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if MyImageSearch("Img\索敌.jpg", 878, 267, 947, 317) {
-                        Log("suodi")
-                        Sleep, 100
-                        Shift()
-                        continue
-                    }
-
-                    if MyImageSearch("Img\蓝霸体.jpg", 878, 267, 947, 317) {
-                        Log("blue")
-                        Sleep, 100
-                        Shift()
-                        continue
-                    }
-
                     if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
                         if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
                             ; 红叶F技能
                             Send, f
+                            Sleep, %AttackTimeInterval%
                             continue
                         }
                     }
@@ -121,15 +117,6 @@ Run() {
                     ; 平击
                     MouseClick
                     Sleep, %AttackTimeInterval%
-                    continue
-                }
-                
-                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
-                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
-                    Challenging = 0
-                    ChallengeBeginTime = 0
-                    Send {e}
-                    Sleep 2500
                     continue
                 }
 
@@ -253,25 +240,6 @@ Stop() {
 }
 
 
-Shift() {
-    Send, {a Down}
-    Send, {Shift Down}
-    ;Sleep, 50
-    Send, {Shift Up}
-    Send, {a Up}
-}
-
-
-SiXiang() {
-	Send {LButton down}
-    Sleep, 180
-	Send {RButton}
-	Send {LButton up}
-    Sleep, 180
-    Send, {LButton}
-}
-
-
 ; 引入OCR库: https://github.com/telppa/PaddleOCR-AutoHotkey/releases
 ; 参考: https://www.autoahk.com/archives/35526
 ; 注意：
@@ -290,12 +258,4 @@ Return
 
 F12::
 	Stop()
-Return
-
-XButton1::
-    Shift()
-Return
-
-XButton2::
-    SiXiang()
 Return
