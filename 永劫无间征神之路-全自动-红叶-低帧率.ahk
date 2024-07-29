@@ -77,15 +77,6 @@ Run() {
 		else {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
-                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
-                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
-                    Challenging = 0
-                    ChallengeBeginTime = 0
-                    Send {e}
-                    Sleep 2500
-                    continue
-                }
-
                 result := PaddleOCR([90, 139, 181-90, 167-139])
                 ; Log(result)
                 
@@ -130,6 +121,15 @@ Run() {
                     ; 平击
                     MouseClick
                     Sleep, %AttackTimeInterval%
+                    continue
+                }
+                
+                ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
+                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
+                    Challenging = 0
+                    ChallengeBeginTime = 0
+                    Send {e}
+                    Sleep 2500
                     continue
                 }
 
