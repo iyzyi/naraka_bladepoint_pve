@@ -143,6 +143,11 @@ Run() {
                     MyMouseClick(797, 624)
                     continue
                 }
+
+                if MyImageSearch("Img\疲劳.jpg", 720, 493, 919, 561) {
+                    MyMouseClick(798, 626)
+                    continue
+                }
                 
                 if MyImageSearch("Img\使用英雄.jpg", 1599, 914, 1678, 961) {
                     MyMouseClick(1643, 941)
