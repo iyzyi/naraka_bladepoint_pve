@@ -131,11 +131,6 @@ Run() {
                     Sleep, 200
 
                     MyMouseClick(961, 779)
-                    Sleep, 500
-                    
-                    if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
-                        Send {Space}
-                    }
                     continue
                 }
 
@@ -223,6 +218,10 @@ Run() {
                 if MyImageSearch("Img\跳过_广告.jpg", 1795, 1032, 1898, 1078) {
                     Send {Esc}
                     continue
+                }
+
+                if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
+                    Send {Space}
                 }
 
                 if MyImageSearch("Img\退至桌面.jpg", 899, 820, 1022, 874) {
