@@ -78,7 +78,7 @@ Run() {
 			pid := WinActive("ahk_exe NarakaBladepoint.exe")
 			if (pid){
                 ; 该IF必须位于检测“坚冰阴凝”之前，不然直接continue下一次循环
-                if MyImageSearch("Img\返魂后传送.jpg", 1075, 633, 1187, 688) {
+                if MyImageSearch("Img1280\返魂后传送.jpg", 1075, 633, 1187, 688) {
                     Challenging = 0
                     ChallengeBeginTime = 0
                     Send {e}
@@ -105,7 +105,7 @@ Run() {
                         ChallengeBeginTime := A_TickCount
                     }
 
-                    if !MyImageSearch("Img\F_2.jpg", 846, 982, 857, 1005) {
+                    if !MyImageSearch("Img1280\F_2.jpg", 846, 982, 857, 1005) {
                         if (A_TickCount > ChallengeBeginTime + PressFTimeAfterBegin) {
                             ; 红叶F技能
                             Send, f
@@ -135,27 +135,27 @@ Run() {
                     continue
                 }
 
-                if MyImageSearch("Img\开始征神.jpg", 1735, 947, 1896, 1046) {
+                if MyImageSearch("Img1280\开始征神.jpg", 1735, 947, 1896, 1046) {
                     MyMouseClick(1700, 998)
                     continue
                 }
 
-                if MyImageSearch("Img\疲劳值.jpg", 746, 487, 1008, 588) {
+                if MyImageSearch("Img1280\疲劳值.jpg", 746, 487, 1008, 588) {
                     MyMouseClick(797, 624)
                     continue
                 }
 
-                if MyImageSearch("Img\疲劳.jpg", 720, 493, 919, 561) {
-                    MyMouseClick(798, 626)
-                    continue
-                }
+                ;if MyImageSearch("Img\疲劳.jpg", 720, 493, 919, 561) {
+                ;    MyMouseClick(798, 626)
+                ;    continue
+                ;}
                 
-                if MyImageSearch("Img\使用英雄.jpg", 1599, 914, 1678, 961) {
+                if MyImageSearch("Img1280\使用英雄.jpg", 1599, 914, 1678, 961) {
                     MyMouseClick(1643, 941)
                     continue
                 }
 
-                if MyImageSearch("Img\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
+                if MyImageSearch("Img1280\跳过_CG.jpg", 1716, 1002, 1920, 1080) {
                     Send {w Up}
                     Send {Shift Up}
                     
@@ -169,68 +169,68 @@ Run() {
                     continue
                 }
 
-                if MyImageSearch("Img\获得头像框.jpg", 797, 881, 1063, 978) {
+                ;if MyImageSearch("Img\获得头像框.jpg", 797, 881, 1063, 978) {
+                ;    Send {Space}
+                ;    continue
+                ;}
+
+                if MyImageSearch("Img1280\继续_铸就传奇界面.jpg", 897, 1028, 1024, 1069) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("Img\继续_铸就传奇界面.jpg", 897, 1028, 1024, 1069) {
-                    Send {Space}
-                    continue
-                }
-
-                if MyImageSearch("Img\放弃重生.jpg", 379, 565, 475, 608) {
+                if MyImageSearch("Img1280\放弃重生.jpg", 379, 565, 475, 608) {
                     Send {F6}
                     continue
                 }
 
-                if MyImageSearch("Img\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
+                if MyImageSearch("Img1280\继续_沉沙折戟界面.jpg", 886, 1027, 986, 1071) {
                     Challenging = 0
                     ChallengeBeginTime = 0
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("Img\继续_红色按钮.jpg", 668, 980, 957, 1037) {
+                if MyImageSearch("Img1280\继续_红色按钮.jpg", 668, 980, 957, 1037) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("Img\继续_升级恭喜获得.jpg", 800, 800, 1100, 916) {
+                ;if MyImageSearch("Img\继续_升级恭喜获得.jpg", 800, 800, 1100, 916) {
+                ;   Send {Space}
+                ;    continue
+                ;}
+
+                if MyImageSearch("Img1280\等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
                     Send {Space}
                     continue
                 }
 
-                if MyImageSearch("Img\等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
-                    Send {Space}
-                    continue
-                }
+                ;;if MyImageSearch("Img\英雄等级界面_空格跳过.jpg", 922, 417, 992, 461) {
+                ;;    Send {Space}
+                ;;    continue
+                ;;}
 
-                if MyImageSearch("Img\英雄等级界面_空格跳过.jpg", 922, 417, 992, 461) {
-                    Send {Space}
-                    continue
-                }
+                ;;if MyImageSearch("Img\全新武技.jpg", 892, 301, 1028, 357) {
+                ;;    Send {Esc}
+                ;;    continue
+                ;;}
 
-                if MyImageSearch("Img\全新武技.jpg", 892, 301, 1028, 357) {
-                    Send {Esc}
-                    continue
-                }
+                ;if MyImageSearch("Img\白泽.jpg", 1390, 326, 1485, 390) {
+                ;    MyMouseClick(1200, 900)
+                ;    continue
+                ;}
 
-                if MyImageSearch("Img\白泽.jpg", 1390, 326, 1485, 390) {
-                    MyMouseClick(1200, 900)
-                    continue
-                }
+                ;if MyImageSearch("Img\跳过_广告.jpg", 1795, 1032, 1898, 1078) {
+                ;    Send {Esc}
+                ;    continue
+                ;}
 
-                if MyImageSearch("Img\跳过_广告.jpg", 1795, 1032, 1898, 1078) {
-                    Send {Esc}
-                    continue
-                }
-
-                if MyImageSearch("Img\已获得胜利.jpg", 626, 366, 1285, 662) {
+                if MyImageSearch("Img1280\已获得胜利.jpg", 626, 366, 1285, 662) {
                     Send {Space}
                 }
 
-                if MyImageSearch("Img\退至桌面.jpg", 899, 820, 1022, 874) {
+                if MyImageSearch("Img1280\退至桌面.jpg", 899, 820, 1022, 874) {
                     Send {Esc}
                     continue
                 }
