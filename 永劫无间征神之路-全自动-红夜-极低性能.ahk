@@ -234,6 +234,23 @@ Run() {
                     Send {Esc}
                     continue
                 }
+
+                if MyImageSearch("Img1280\公告.jpg", 911, 285, 1007, 352) {
+                    Send {Space}
+                    continue
+                }
+
+                if MyImageSearch("Img1280\首页.jpg", 1815, 929, 1905, 1056) {
+                    Sleep, 500
+                    MyMouseClick(960, 900)
+                    Sleep, 1000
+                    continue
+                }
+
+                if MyImageSearch("Img1280\有未完的战斗.jpg", 802, 498, 980, 554) {
+                    MyMouseClick(1113, 624)
+                    continue
+                }
             }
         }
     }
