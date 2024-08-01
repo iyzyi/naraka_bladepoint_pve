@@ -275,9 +275,9 @@ Stop() {
 ; ***********快捷键***********
 
 
-F8::
-    Run *RunAs "D:\Desktop\exit.bat"
-Return
+;F8::
+;    Run *RunAs "D:\Desktop\exit.bat"
+;Return
 
 
 F10::
