@@ -1,4 +1,4 @@
-﻿; 永劫无间 征神之路 雪满弓刀 全自动
+﻿; 永劫无间 征神之路 雪满弓刀 红夜 37帧率
 ; AutoHotKey文档：https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm
 
 
