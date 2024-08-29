@@ -201,6 +201,11 @@ Run() {
                     continue
                 }
 
+                if MyImageSearch("Img\学识点.jpg", 876, 202, 1050, 278) {
+                    Send {Space}
+                    continue
+                }
+
                 if MyImageSearch("Img\等级界面_空格跳过.jpg", 920, 415, 1002, 467) {
                     Send {Space}
                     continue
